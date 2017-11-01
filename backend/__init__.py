@@ -36,4 +36,3 @@ def process_user_query(query_string):
         for profit in work['Profit']:
             summation+=profit
         return summation
-print(,process_user_query('Revenue'))
