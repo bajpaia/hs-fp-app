@@ -13,7 +13,7 @@ def process_user_query(query_string):
         for profits in work['Profit']:
             if profits<=0:
                 iterlist.append(profits)
-            summation=sum(losses_list)
+            summation=sum(iterlist)
         return summation
     if query_string=='Sales Max':
         for sales_number in work['Sales']:
