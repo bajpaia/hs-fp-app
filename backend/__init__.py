@@ -16,13 +16,13 @@ def process_user_query(query_string):
                 iterlist.append(profits)
             summation=sum(iterlist)
         return summation
-    if query_string=='Sales Max':
+    elif query_string=='Sales Max':
         for sales_number in work['Sales']:
             iterlist.append(sales_number)
         maximum_sales=max(iterlist)
         return maximum_sales
 
-    if query_string=='Businesses served':
+    elif query_string=='Businesses served':
         for business in work['Customer Segment']:
             if business == 'Consumer':
                 consumer=consumer+1
@@ -33,7 +33,13 @@ def process_user_query(query_string):
             elif business == 'Small Business':
                 small_business=small_business+1
         return {'Consumer':consumer, 'Corporate':corporate,'Home Office':home_office,'Small Business':small_business}
-    if query_string=='Revenue':
+    elif query_string=='Revenue':
         for profit in work['Profit']:
             summation+=profit
-        return summation#
+        return summation
+    else:
+        return 'Search not found'
+
+
+#print(process_user_query('Losser'))
+#print(process_user_query('Revenue'))
