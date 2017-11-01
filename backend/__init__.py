@@ -1,9 +1,10 @@
 
 import pandas as pd
-x1= pd.ExcelFile('Sample - Superstore Sales (Excel).xls')
-work=(x1.parse('Orders')).set_index('Row ID')
-iterlist=[]
+
 def process_user_query(query_string):
+    x1= pd.ExcelFile('Sample - Superstore Sales (Excel).xls')
+    work=(x1.parse('Orders')).set_index('Row ID')
+    iterlist=[]
     consumer=0
     corporate=0
     home_office=0
@@ -35,4 +36,4 @@ def process_user_query(query_string):
     if query_string=='Revenue':
         for profit in work['Profit']:
             summation+=profit
-        return summation
+        return summation#
