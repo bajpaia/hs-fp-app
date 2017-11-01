@@ -15,12 +15,12 @@ def process_user_query(query_string):
             if profits<=0:
                 iterlist.append(profits)
             summation=sum(iterlist)
-        return summation
+        return str(summation)
     elif query_string=='Sales Max':
         for sales_number in work['Sales']:
             iterlist.append(sales_number)
         maximum_sales=max(iterlist)
-        return maximum_sales
+        return str(maximum_sales)
 
     elif query_string=='Businesses served':
         for business in work['Customer Segment']:
@@ -36,7 +36,7 @@ def process_user_query(query_string):
     elif query_string=='Revenue':
         for profit in work['Profit']:
             summation+=profit
-        return summation
+        return str(summation)
     else:
         return 'Search not found'
 
