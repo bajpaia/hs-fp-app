@@ -34,5 +34,13 @@ def process_user_query(query_string):
         return {'Consumer':consumer, 'Corporate':corporate,'Home Office':home_office,'Small Business':small_business}
     if query_string=='Revenue':
         for profit in work['Profit']:
-            summation=summation+profit
+            summation+=profit
         return summation
+print(,process_user_query('Revenue'))
+
+
+for sales_number in work['Sales']:
+    if sales_number>80000:
+        location= work['Sales'].iloc(sales_number)
+        iterlist.append(sales_number)
+        print('Aaaa',location)
