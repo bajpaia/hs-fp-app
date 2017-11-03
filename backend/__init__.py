@@ -14,6 +14,7 @@ def process_user_query(query_string):
     sales=[]
     prices=[]
     products=[]
+
     revenue_con=0
     rev_corp=0
     rev_sma=0
@@ -70,6 +71,7 @@ def process_user_query(query_string):
     elif query_string in region:
         for i,region in enumerate(work['Region']):
             if region==query_string:
+
                 sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
                 profit.append(work['Profit'][i+1])
                 if work['Profit'][i+1]<=0:
@@ -88,6 +90,6 @@ def process_user_query(query_string):
                 elif min_sales==work['Sales'][i+1]:
                     unpop_prod=work['Product Name'][i+1]
 
-        return 'The best selling product for the region is '+pop_prod+ ' with '+ str(int(min_sales))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+prro_add+'.\n The lowest selling product is the '+unpop_prod+ ' with ' + str(int(min_sales))+' sales, with a loss of \n'+str(int(losses))
+        return 'The best selling product for the region is '+pop_prod+ ' with '+ str(int(min_sales))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+prro_add+'.\n The lowest selling product is the '+unpop_prod+ ' with ' + str(int(min_sales))+' sales, with a loss of '+str(int(losses))
     else:
         return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
