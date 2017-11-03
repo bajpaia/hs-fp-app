@@ -14,6 +14,8 @@ def process_user_query(query_string):
     sales=[]
     prices=[]
     products=[]
+    prod_list=[]
+
 
     revenue_con=0
     rev_corp=0
@@ -22,6 +24,9 @@ def process_user_query(query_string):
     profit=[]
     region=[]
     priceavg=0
+
+    for products in work['Product Name']:
+        prod_list.append(products)
     for regions in work['Region']:
         region.append(regions)
     if query_string=='Losses':
@@ -91,5 +96,6 @@ def process_user_query(query_string):
                     unpop_prod=work['Product Name'][i+1]
 
         return 'The best selling product for the region is '+pop_prod+ ' with '+ str(int(min_sales))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+prro_add+'.\n The lowest selling product is the '+unpop_prod+ ' with ' + str(int(min_sales))+' sales, with a loss of '+str(int(losses))
+
     else:
         return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
