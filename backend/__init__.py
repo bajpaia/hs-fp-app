@@ -18,7 +18,10 @@ def process_user_query(query_string):
     rev_corp=0
     rev_sma=0
     rev_hmo=0
-
+    profit=[]
+    region=[]
+    for regions in work['Region']:
+        region.append(regions)
     if query_string=='Losses':
         for profits in work['Profit']:
             if profits<=0:
@@ -61,63 +64,26 @@ def process_user_query(query_string):
         rev_hmo='The Revenue '+ str(rev_hmo)
         revenue_con='The Revenue '+str(revenue_con)
         return {'Consumer':[consumer,revenue_con], 'Corporate':[corporate,rev_corp],'Home Office':[home_office,rev_hmo],'Small Business':[small_business,rev_sma]}
+
     elif query_string=='Revenue':
         for profit in work['Profit']:
             summation+=profit
         return 'The Revenue for all products in all regions is '+ str(summation)
 
-    elif query_string== 'Max Sales in Northewest':
-        for i, region in enumerate(work['Region']):
-            if region=='Northwest Territories':
+    elif query_string in region:
+        for i,region in enumerate(work['Region']):
+            if region==query_string:
                 sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-        return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Atlantic':
-            for i, region in enumerate(work['Region']):
-                if region=='Atlantic':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Ontario':
-            for i, region in enumerate(work['Region']):
-                if region=='Ontario':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Nunavut':
-            for i, region in enumerate(work['Region']):
-                if region=='Nunavut':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Prarie':
-            for i, region in enumerate(work['Region']):
-                if region=='Prarie':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Quebec':
-            for i, region in enumerate(work['Region']):
-                if region=='Quebec':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in West':
-            for i, region in enumerate(work['Region']):
-                if region=='West':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
-    elif query_string== 'Max Sales in Yukon':
-            for i, region in enumerate(work['Region']):
-                if region=='Yukon':
-                    sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
-            return ('Max sales',max(sales))
+                profit.append(work['Profit'][i+1])
+        max_sales= max(sales)
+        profits=sum(profit)
+        for i,region in enumerate(work['Region']):
+            if region==query_string:
+                if max_sales==work['Sales'][i+1]:
+                    pop_prod= work['Product Name'][i+1]
+                    sale_kit= work['Sales'][i+1]
+                    prro_add= work['Province'][i+1]
+        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales in the province of '+str(prro_add)
 
     else:
-        return 'Search not found'
-
-
-
-
-
-
-
-
-
-
-#print(process_user_query('Businesses served'))
-#print(process_user_query('Revenue'))
+        return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
