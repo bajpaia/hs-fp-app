@@ -27,9 +27,9 @@ def process_user_query(query_string):
             if profits<=0:
                 iterlist.append(profits)
             summation=sum(iterlist)
-        return 'Losses in all regions'+str(summation)
+        return 'Losses in all regions '+str(summation)
 
-    elif query_string=='Sales Max':
+    elif query_string=='Sales':
         for sales_number in work['Sales']:
             iterlist.append(sales_number)
         maximum=max(iterlist)
@@ -75,6 +75,7 @@ def process_user_query(query_string):
             if region==query_string:
                 sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
                 profit.append(work['Profit'][i+1])
+
         max_sales= max(sales)
         profits=sum(profit)
         for i,region in enumerate(work['Region']):
@@ -83,7 +84,8 @@ def process_user_query(query_string):
                     pop_prod= work['Product Name'][i+1]
                     sale_kit= work['Sales'][i+1]
                     prro_add= work['Province'][i+1]
-        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales in the province of '+str(prro_add)
+                    order_quant=work['Order Quantity'][i+1]
+        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales, generating '+str(profits) ' in revenue, in the province of '+str(prro_add)
 
     else:
         return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
