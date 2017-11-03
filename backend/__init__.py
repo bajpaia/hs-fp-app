@@ -85,7 +85,7 @@ def process_user_query(query_string):
                     sale_kit= work['Sales'][i+1]
                     prro_add= work['Province'][i+1]
                     order_quant=work['Order Quantity'][i+1]
-        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales, generating '+str(profits) ' in revenue, in the province of '+str(prro_add)
+        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+str(prro_add)+'.\n The lowest selling product is '
 
     else:
         return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
