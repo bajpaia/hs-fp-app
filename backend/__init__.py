@@ -20,6 +20,7 @@ def process_user_query(query_string):
     rev_hmo=0
     profit=[]
     region=[]
+    priceavg=0
     for regions in work['Region']:
         region.append(regions)
     if query_string=='Losses':
@@ -56,14 +57,10 @@ def process_user_query(query_string):
                 small_business=small_business+1
                 rev_sma+=work['Profit'][i+1]
         consumer= 'The number '+ str(consumer)
-        corporate= 'The number' + str(corporate)
-        home_office = 'The number '+str(home_office)
-        small_business='The number '+ str(small_business)
-        rev_corp='The Revenue '+str(rev_corp)
-        rev_sma='The Revenue ' + str(rev_sma)
-        rev_hmo='The Revenue '+ str(rev_hmo)
-        revenue_con='The Revenue '+str(revenue_con)
-        return {'Consumer':[consumer,revenue_con], 'Corporate':[corporate,rev_corp],'Home Office':[home_office,rev_hmo],'Small Business':[small_business,rev_sma]}
+
+        revenue_con='The Revenue '+str(int(revenue_con))
+
+        return {'Consumer':[consumer,revenue_con], 'Corporate':[corporate,int(rev_corp)],'Home Office':[home_office,int(rev_hmo)],'Small Business':[small_business,int(rev_sma)]}
 
     elif query_string=='Revenue':
         for profit in work['Profit']:
@@ -75,17 +72,22 @@ def process_user_query(query_string):
             if region==query_string:
                 sales.append(work['Sales'][i+1])#i+1 to go to the next row as rowid is excel row no +1
                 profit.append(work['Profit'][i+1])
+                if work['Profit'][i+1]<=0:
+                    iterlist.append(work['Profit'][i+1])
 
         max_sales= max(sales)
+        min_sales=min(sales)
         profits=sum(profit)
+        losses=sum(iterlist)
         for i,region in enumerate(work['Region']):
             if region==query_string:
                 if max_sales==work['Sales'][i+1]:
                     pop_prod= work['Product Name'][i+1]
-                    sale_kit= work['Sales'][i+1]
                     prro_add= work['Province'][i+1]
-                    order_quant=work['Order Quantity'][i+1]
-        return 'The best selling product for the region is '+str(pop_prod)+ ' with '+ str(int(sale_kit))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+str(prro_add)+'.\n The lowest selling product is '
 
+                elif min_sales==work['Sales'][i+1]:
+                    unpop_prod=work['Product Name'][i+1]
+
+        return 'The best selling product for the region is '+pop_prod+ ' with '+ str(int(min_sales))+ ' sales,\n generating '+str(profits) +' in revenue, in the province of '+prro_add+'.\n The lowest selling product is the '+unpop_prod+ ' with ' + str(int(min_sales))+' sales, with a loss of \n'+str(int(losses))
     else:
         return 'Error 404: The thing you are looking for does not exist or has not been coded in yet'
